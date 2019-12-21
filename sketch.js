@@ -13,13 +13,13 @@ var canvasWidth = 1900;
 var canvasHeight = 850;
 var maxPlanetSize = 200;
 
-var planet_count_scale = 20;
-var planet_slider_scale = 5;
+var planet_count_scale = 25;
+var planet_slider_scale = 2;
 
 function setup() {
 
 	/* Create world and info canvases*/
-	info = createGraphics(windowWidth, windowHeight*.3);
+	info = createGraphics(windowWidth, windowHeight*.35);
 	info.background('white');
 	info.style('margin', 'auto');
 	info.style('display', 'block');
@@ -28,7 +28,7 @@ function setup() {
 	gravSlider = createSlider(0, CONSTANTS['MAX_GRAVITY'], 0, CONSTANTS['MAX_GRAVITY']*.1);
 	gravSlider.position(info.width/planet_slider_scale, 175);
 
-	viewScaleSlier = createSlider(.01, 1, 1, .01);
+	viewScaleSlier = createSlider(.1, 1, 1, .01);
 	viewScaleSlier.position(info.width/planet_slider_scale, 225);
 
 	/* Button controls */
@@ -58,7 +58,7 @@ function setup() {
 	});
 	/* -------------------------------------- */
 	next_selected_button = createButton('Next');
-	next_selected_button.position(info.width/planet_count_scale*.5, 100);
+	next_selected_button.position(info.width/planet_count_scale + 50, 175);
 	next_selected_button.mousePressed(function() {
 		if (selected_body < bodies.length-1) {
 			selected_body += 1;
@@ -68,7 +68,7 @@ function setup() {
 	});
 	/* -------------------------------------- */
 	prev_selected_button = createButton('Prev');
-	prev_selected_button.position(info.width/planet_count_scale*.5, 125);
+	prev_selected_button.position(info.width/planet_count_scale, 175);
 	prev_selected_button.mousePressed(function() {
 		if (selected_body > 0) {
 			selected_body -= 1;
@@ -106,7 +106,7 @@ function draw_world() {
 
 	if (bodies.length < 1) {
 		fill('white');
-		textSize(50);
+		textSize(50*viewScale);
 		world.text('No planets to be drawn (⌣́_⌣̀)', width/3, height/2);
 	} else if (bodies.length === 1) {
 		bodies[0].draw(viewScale);
@@ -143,21 +143,21 @@ function getLiveStats(body) {
 	info.text('View Scale', info.width/planet_slider_scale - 8, 155);
 	info.textSize(24);
 	if ( bodies.length < 1) {
-		info.text('No planet to display', info.width/planet_count_scale, 60);
+		info.text('No planet \nto display', info.width/planet_count_scale, info.height/planet_count_scale*4);
 	} else {
 		info.fill('black');
 		info.text('Info ['+selected_body+']', info.width / planet_count_scale, 25);
-		info.text('Diameter: ' + body.diameter, info.width / planet_count_scale, 50);
-		info.text('Mass: ' + body.mass, info.width / planet_count_scale, 75);
-		info.text('Momentum: ' + body.calcMomentum(), info.width / planet_count_scale, 100);
+		info.text('Diameter:' + body.diameter, info.width / planet_count_scale, 50);
+		info.text('Mass:' + body.mass, info.width / planet_count_scale, 75);
+		info.text('Momentum:' + body.calcMomentum(), info.width / planet_count_scale, 100);
 		show_body(body);
 	}
 }
 
 function show_body(body) {
-	view_scale = .3;
+	view_scale = .25;
 	info.fill(body.color);
-	info.ellipse(info.width/planet_count_scale*2, info.height/1.5, body.diameter*view_scale);
+	info.ellipse(info.width/planet_count_scale/view_scale, info.height/1.5, body.diameter*viewScaleSlier.value()*view_scale);
 }
 
 function clicked(body) {
