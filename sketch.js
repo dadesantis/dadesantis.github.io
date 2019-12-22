@@ -27,9 +27,12 @@ function setup() {
 	/* Sliders */
 	gravSlider = createSlider(0, CONSTANTS['MAX_GRAVITY'], 0, CONSTANTS['MAX_GRAVITY']*.1);
 	gravSlider.position(info.width/planet_slider_scale, 175);
-
+	/* -------------------------------------- */
 	viewScaleSlier = createSlider(.1, 1, 1, .01);
 	viewScaleSlier.position(info.width/planet_slider_scale, 225);
+	/* -------------------------------------- */
+	maxInfluenceSlider = createSlider(0, CONSTANTS['MAXED_INFLUENCED'], num_bodies-1, 1);
+	maxInfluenceSlider.position(info.width/planet_slider_scale, 275);
 
 	/* Button controls */
 	increment_button = createButton('Increment');
@@ -91,6 +94,7 @@ function setup() {
 	}
 	
 	getLiveStats(bodies[selected_body]);
+	console.log(bodies);
 
 }
 
@@ -117,12 +121,14 @@ function draw_world() {
 		temp.sort((a, b) => (a.diameter < b.diameter) ? 1 : -1);
 		for (let i = 0; i < temp.length; i++) {
 			for (let j = 0; j < temp.length; j++) {
-				if (i != j) {
+				if (i !== j && maxInfluenceSlider.value()) {
 					temp[i].applyForce(calculateAttraction(temp[i], temp[j]));
-					temp[i].update();
-					temp[i].draw(viewScale);
+					// temp[i].update();
+					// temp[i].draw(viewScale);
 				}
 			}
+			temp[i].update();
+			temp[i].draw(viewScale);
 		}
 
 		getLiveStats(bodies[selected_body]);
@@ -141,6 +147,7 @@ function getLiveStats(body) {
 	info.text('Planet Count: ' + bodies.length, info.width / planet_slider_scale, 25);
 	info.text('Gravity', info.width/planet_slider_scale - 8, 105);
 	info.text('View Scale', info.width/planet_slider_scale - 8, 155);
+	info.text('Max Influenced:' + maxInfluenceSlider.value(), info.width/planet_slider_scale - 8, 205);
 	info.textSize(24);
 	if ( bodies.length < 1) {
 		info.text('No planet \nto display', info.width/planet_count_scale, info.height/planet_count_scale*4);

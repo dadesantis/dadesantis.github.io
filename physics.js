@@ -1,6 +1,7 @@
 var CONSTANTS = {
     'MAX_SPEED': 20,
     'MAX_GRAVITY': 200,
+    'MAXED_INFLUENCED': 10,
     'bodyColors': ['brown', 'green', 'magenta',
                     'black', 'red', 'orange']
 }
