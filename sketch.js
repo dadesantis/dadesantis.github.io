@@ -1,17 +1,17 @@
 /* Objects */
-// TODO: Make bodies and array list
 // Make option to create a custom body
-var body_1;
-var body_2;
 var bodies = [];
 var num_bodies = 2;
 var selected_body = 0;
+var minPlanetSize = 50;
+var maxPlanetSize = 300;
+var minPlanetMass = 100;
+var maxPlanetMass = 1000;
 
 /* Canvas Variables */
 var viewScale = 1.0;
 var canvasWidth = 1900;
 var canvasHeight = 850;
-var maxPlanetSize = 200;
 
 var planet_count_scale = 25;
 var planet_slider_scale = 2;
@@ -24,21 +24,23 @@ function setup() {
 	info.style('margin', 'auto');
 	info.style('display', 'block');
 
+	world = createCanvas(windowWidth, windowHeight);
+	world.background('navy');
+	world.style('margin', 'auto');
+	world.style('display', 'block');
+	
 	/* Sliders */
-	gravSlider = createSlider(0, CONSTANTS['MAX_GRAVITY'], 0, CONSTANTS['MAX_GRAVITY']*.1);
+	gravSlider = createSlider(0, CONSTANTS['MAX_GRAVITY'], CONSTANTS['MAX_GRAVITY'] / 2, CONSTANTS['MAX_GRAVITY'] * .1);
 	gravSlider.position(info.width/planet_slider_scale, 175);
 	/* -------------------------------------- */
 	viewScaleSlier = createSlider(.1, 1, 1, .01);
 	viewScaleSlier.position(info.width/planet_slider_scale, 225);
-	/* -------------------------------------- */
-	maxInfluenceSlider = createSlider(0, CONSTANTS['MAXED_INFLUENCED'], num_bodies-1, 1);
-	maxInfluenceSlider.position(info.width/planet_slider_scale, 275);
 
 	/* Button controls */
 	increment_button = createButton('Increment');
 	increment_button.position(info.width/planet_slider_scale, 100);
 	increment_button.mousePressed(function() {
-		bodies.push(new Body(random(maxPlanetSize, (canvasWidth-maxPlanetSize)), random(maxPlanetSize, (canvasHeight-maxPlanetSize)), floor(random(50, 500)), floor(random(50, 500))));
+		bodies.push(new Body(random(maxPlanetSize, world.width-maxPlanetSize), random(maxPlanetSize, world.height-maxPlanetSize), floor(random(minPlanetSize, maxPlanetSize)), floor(random(minPlanetMass, maxPlanetMass))));
 		selected_body = bodies.length-1;
 		return;
 	});
@@ -80,17 +82,12 @@ function setup() {
 		}
 	});
 	
-	world = createCanvas(windowWidth, windowHeight);
-	world.background('navy');
-	world.style('margin', 'auto');
-	world.style('display', 'block');
-	
 	/**
 	 * Scene objects
 	 * Draw objects smallest to largest  
 	 */
 	for (let i = 0; i < num_bodies; i++) {
-		bodies.push(new Body(random(maxPlanetSize, (canvasWidth-maxPlanetSize)), random(maxPlanetSize, (canvasHeight-maxPlanetSize)), floor(random(50, 500)), floor(random(50, 500))));
+		bodies.push(new Body(random(maxPlanetSize, world.width-maxPlanetSize), random(maxPlanetSize, world.height-maxPlanetSize), floor(random(minPlanetSize, maxPlanetSize)), floor(random(minPlanetMass, maxPlanetMass))));
 	}
 	
 	getLiveStats(bodies[selected_body]);
@@ -121,7 +118,7 @@ function draw_world() {
 		temp.sort((a, b) => (a.diameter < b.diameter) ? 1 : -1);
 		for (let i = 0; i < temp.length; i++) {
 			for (let j = 0; j < temp.length; j++) {
-				if (i !== j && i < maxInfluenceSlider.value()) {
+				if (i !== j) {
 					temp[i].applyForce(calculateAttraction(temp[i], temp[j]));
 					temp[i].update();
 					temp[i].draw(viewScale);
@@ -143,12 +140,11 @@ function draw_world() {
  */
 function getLiveStats(body) {
 	info.background('white');
+	info.textSize(24);
 	info.fill('black');
 	info.text('Planet Count: ' + bodies.length, info.width / planet_slider_scale, 25);
 	info.text('Gravity', info.width/planet_slider_scale - 8, 105);
 	info.text('View Scale', info.width/planet_slider_scale - 8, 155);
-	info.text('Max Influenced:' + maxInfluenceSlider.value(), info.width/planet_slider_scale - 8, 205);
-	info.textSize(24);
 	if ( bodies.length < 1) {
 		info.text('No planet \nto display', info.width/planet_count_scale, info.height/planet_count_scale*4);
 	} else {
@@ -162,7 +158,7 @@ function getLiveStats(body) {
 }
 
 function show_body(body) {
-	view_scale = .25;
+	view_scale = .5;
 	info.fill(body.color);
 	info.ellipse(info.width/planet_count_scale/view_scale, info.height/1.5, body.diameter*viewScaleSlier.value()*view_scale);
 }

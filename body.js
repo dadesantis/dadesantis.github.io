@@ -53,21 +53,18 @@ class Body {
             this.velocity.limit(CONSTANTS['MAX_SPEED']);
             this.acceleration.mult(0);
             this.wrap();
-        } else {
-            this.xPos = this.diameter + 10;
-            this.yPos = this.diameter + 10;
         }
     }
 
     /* Thought you can escape this hell? No */
     wrap() {
-        if (this.pos.x > width + this.diameter) {
+        if (this.pos.x > width + this.diameter/2) {
             this.pos.x = -this.diameter/2;
         } else if (this.pos.x + this.diameter < 0) {
             this.pos.x = width + this.diameter/2;
         } else if (this.pos.y > height + this.diameter) {
             this.pos.y = -this.diameter/2;
-        } else if (this.pos.y + this.diameter < 0) {
+        } else if (this.pos.y + this.diameter/2 < 0) {
             this.pos.y = height + this.diameter/2;
         }
     }
