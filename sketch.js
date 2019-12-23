@@ -2,6 +2,7 @@
 // Make option to create a custom body
 var bodies = [];
 var num_bodies = 2;
+var max_bodies = 50;
 var selected_body = 0;
 var minPlanetSize = 50;
 var maxPlanetSize = 300;
@@ -40,8 +41,12 @@ function setup() {
 	increment_button = createButton('Increment');
 	increment_button.position(info.width/planet_slider_scale, 100);
 	increment_button.mousePressed(function() {
-		bodies.push(new Body(random(maxPlanetSize, world.width-maxPlanetSize), random(maxPlanetSize, world.height-maxPlanetSize), floor(random(minPlanetSize, maxPlanetSize)), floor(random(minPlanetMass, maxPlanetMass))));
-		selected_body = bodies.length-1;
+		if (bodies.length >= max_bodies) {
+			alert('You really don\'t want to add anymore. Trust me.');
+		} else {
+			bodies.push(new Body(random(maxPlanetSize, world.width-maxPlanetSize), random(maxPlanetSize, world.height-maxPlanetSize), floor(random(minPlanetSize, maxPlanetSize)), floor(random(minPlanetMass, maxPlanetMass))));
+			selected_body = bodies.length-1;
+		}
 		return;
 	});
 	/* -------------------------------------- */
@@ -49,10 +54,7 @@ function setup() {
 	decrement_button.position(info.width/planet_slider_scale, 125);
 	decrement_button.mousePressed(function() {
 		bodies.pop();
-		/**
-		 * If there's at least one body, set selected to the last element
-		 * Otherwise, set it to the first
-		 */ 
+
 		if (bodies.length > 1) {
 			selected_body = bodies.length-1;
 		} else  {

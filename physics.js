@@ -1,8 +1,8 @@
 var CONSTANTS = {
-    'MAX_SPEED': 10,
-    'MAX_GRAVITY': 50,
+    'MAX_SPEED': 5,
+    'MAX_GRAVITY': 10,
     'bodyColors': ['brown', 'green', 'magenta',
-                    'black', 'red', 'orange']
+                    'black', 'red', 'orange', 'blue', 'white']
 }
 
 var G = 0;
