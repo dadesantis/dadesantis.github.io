@@ -121,10 +121,10 @@ function draw_world() {
 		temp.sort((a, b) => (a.diameter < b.diameter) ? 1 : -1);
 		for (let i = 0; i < temp.length; i++) {
 			for (let j = 0; j < temp.length; j++) {
-				if (i !== j && maxInfluenceSlider.value()) {
+				if (i !== j && i < maxInfluenceSlider.value()) {
 					temp[i].applyForce(calculateAttraction(temp[i], temp[j]));
-					// temp[i].update();
-					// temp[i].draw(viewScale);
+					temp[i].update();
+					temp[i].draw(viewScale);
 				}
 			}
 			temp[i].update();
