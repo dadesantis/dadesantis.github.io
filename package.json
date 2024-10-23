@@ -1,0 +1,19 @@
+{
+  "name": "gravity",
+  "version": "1.0.0",
+  "description": "What if gravity was gravy?",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dadesantis/gravity.git"
+  },
+  "author": "dadesantis",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/standalone": "^7.25.9",
+    "express": "^4.17.1",
+    "p5": "^1.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
