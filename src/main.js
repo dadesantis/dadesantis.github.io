@@ -3,7 +3,7 @@ import { UIController } from './ui/UIController.js';
 import { BodyBuilder } from './ui/BodyBuilder.js';
 import { CELESTIAL_TYPES } from './constants/celestialTypes.js';
 import { Body } from './models/Body.js';
-import p5 from 'p5';
+const p5 = require('p5')
 
 // Use p5 instance mode
 const sketch = (p5) => {
