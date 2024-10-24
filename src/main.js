@@ -3,7 +3,6 @@ import { UIController } from './ui/UIController.js';
 import { BodyBuilder } from './ui/BodyBuilder.js';
 import { CELESTIAL_TYPES } from './constants/celestialTypes.js';
 import { Body } from './models/Body.js';
-const p5 = require('p5')
 
 // Use p5 instance mode
 const sketch = (p5) => {
@@ -71,7 +70,7 @@ const sketch = (p5) => {
         p5.fill(255);
         p5.noStroke();
         p5.textSize(12);
-        let y = 120; // Start below the info panel
+        let y = 200; // Start below the info panel
 
         gravitySystem.bodies.forEach((body, index) => {
             p5.text(

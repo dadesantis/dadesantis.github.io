@@ -1,8 +1,8 @@
 export const CELESTIAL_TYPES = {
     STAR: {
         name: 'Star',
-        massRange: { min: 100, max: 800 },
-        diameterRange: { min: 400, max: 1000 },
+        massRange: { min: 1000, max: 8000 },
+        diameterRange: { min: 400, max: 750 },
         colors: [
             '#FFD700', // Yellow star
             '#FFA500', // Orange star
@@ -19,8 +19,8 @@ export const CELESTIAL_TYPES = {
     
     NEUTRON_STAR: {
         name: 'Neutron Star',
-        massRange: { min: 100000, max: 120000 },
-        diameterRange: { min: 5, max: 20 },
+        massRange: { min: 100000, max: 150000 },
+        diameterRange: { min: 5, max: 10 },
         colors: [
             '#E0FFFF', // Light cyan
             '#87CEEB', // Sky blue
@@ -35,8 +35,8 @@ export const CELESTIAL_TYPES = {
     
     BLACK_HOLE: {
         name: 'Black Hole',
-        massRange: { min: 25000, max: 50000 },
-        diameterRange: { min: 30, max: 60 },
+        massRange: { min: 500000, max: 1000000 },
+        diameterRange: { min: 10, max: 1000 },
         colors: ['rgb(0,0,0)'], // Use RGB format instead of plain 'black'
         luminosity: { min: 0, max: 0 },
         description: 'Region of spacetime with gravitational pull so strong that nothing can escape',
@@ -47,8 +47,8 @@ export const CELESTIAL_TYPES = {
     
     PLANET: {
         name: 'Planet',
-        massRange: { min: 1000, max: 3000 },
-        diameterRange: { min: 100, max: 200 },
+        massRange: { min: 500, max: 1250 },
+        diameterRange: { min: 50, max: 150 },
         colors: [
             '#4169E1', // Earth-like
             '#8B4513', // Rocky
@@ -56,7 +56,7 @@ export const CELESTIAL_TYPES = {
             '#20B2AA', // Ice giant
             '#FF6347'  // Hot jupiter
         ],
-        luminosity: { min: 0, max: 0 },
+        luminosity: { min: 0, max: 0.5 },
         description: 'Rocky or gaseous celestial bodies orbiting stars',
         probability: 0.3
     },
@@ -78,7 +78,7 @@ export const CELESTIAL_TYPES = {
     
     COMET: {
         name: 'Comet',
-        massRange: { min: 200, max: 600 },
+        massRange: { min: 20, max: 100 },
         diameterRange: { min: 30, max: 60 },
         colors: [
             '#87CEEB', // Sky blue
